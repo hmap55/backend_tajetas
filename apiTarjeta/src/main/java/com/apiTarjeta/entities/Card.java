@@ -1,6 +1,7 @@
 package com.apiTarjeta.entities;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class Card {
 	private String cardType;
 	
 	@Column(name = "valid_number")
-	private Long validNumber;
+	private Integer validNumber;
 	
 	@Column(name = "card_state")
 	private String cardState;
@@ -34,6 +35,18 @@ public class Card {
 	
 	@OneToMany(mappedBy="card")
 	private List<Transaction> transactions;
+	
+	
+	
+
+	public Card(BigInteger pan, String cardType, String cardState, Client client) {
+		super();
+		this.pan = pan;
+		this.cardType = cardType;
+		this.cardState = cardState;
+		this.setClient(client);
+		this.getValidationNumber();
+	}
 
 	public BigInteger getPan() {
 		return pan;
@@ -51,12 +64,8 @@ public class Card {
 		this.cardType = cardType;
 	}
 
-	public Long getValidNumber() {
+	public Integer getValidNumber() {
 		return validNumber;
-	}
-
-	public void setValidNumber(Long validNumber) {
-		this.validNumber = validNumber;
 	}
 
 	public String getCardState() {
@@ -83,6 +92,20 @@ public class Card {
 		this.transactions = transactions;
 	}
 	
+	
+	public void getValidationNumber() {
+		
+		Integer validationNumber = (int) ((Math.random() * 100) + 1);
+		this.validNumber = validationNumber;
+		
+	}
+	
+	public String getPanEnmascarado(BigInteger pan) {
+		String panString = pan.toString();
+		String[] characters = new String[panString.length() - 10];
+		Arrays.fill(characters, "*");
+		return panString.substring(0, 6) + String.join("", characters) + panString.substring(panString.length() - 4);
+	}
 
 
 }

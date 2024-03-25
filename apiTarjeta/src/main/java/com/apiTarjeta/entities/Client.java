@@ -20,7 +20,7 @@ public class Client {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long clientId;
+	private Long clientId;
 	
 	private String name;
 	
@@ -35,6 +35,15 @@ public class Client {
 	
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Card> cards;
+
+
+	public Client(Long clientId, String name, String lastName, Long phone) {
+		super();
+		this.clientId = clientId;
+		this.name = name;
+		this.lastName = lastName;
+		this.phone = phone;
+	}
 
 	public long getClientId() {
 		return clientId;
