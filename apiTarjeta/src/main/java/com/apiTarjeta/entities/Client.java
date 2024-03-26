@@ -1,5 +1,6 @@
 package com.apiTarjeta.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,7 +34,7 @@ public class Client {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Card> cards;
 
 
@@ -43,6 +44,7 @@ public class Client {
 		this.name = name;
 		this.lastName = lastName;
 		this.phone = phone;
+		this.cards = new ArrayList<Card>();
 	}
 
 	public long getClientId() {
@@ -75,6 +77,16 @@ public class Client {
 
 	public void setPhone(Long phone) {
 		this.phone = phone;
+	}
+	
+	
+
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public void addCard(Card card) {
+		this.cards.add(card);
 	}
 
 	public User getUser() {

@@ -9,6 +9,16 @@ public class CreateCardResponse {
 	private Integer validationNumber;
 	
 	private String panCod;
+	
+	
+
+	public CreateCardResponse(String responseCode, String message, Integer validationNumber, String panCod) {
+		super();
+		this.responseCode = responseCode;
+		this.message = message;
+		this.validationNumber = validationNumber;
+		this.panCod = panCod;
+	}
 
 	public String getResponseCode() {
 		return responseCode;
