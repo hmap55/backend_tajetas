@@ -7,12 +7,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 @Table(name = "CLIENTS")
@@ -20,7 +19,7 @@ import javax.persistence.Table;
 public class Client {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="client_id")
 	private Long clientId;
 	
 	private String name;
@@ -35,25 +34,28 @@ public class Client {
 	private User user;
 	
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Card> cards;
-
-
+	private List<Card> cards = new ArrayList<Card>();
+	
+	public Client() {}
+	
+	
 	public Client(Long clientId, String name, String lastName, Long phone) {
-		super();
 		this.clientId = clientId;
 		this.name = name;
 		this.lastName = lastName;
 		this.phone = phone;
-		this.cards = new ArrayList<Card>();
 	}
+
 
 	public long getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(long clientId) {
+
+	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
+
 
 	public String getName() {
 		return name;

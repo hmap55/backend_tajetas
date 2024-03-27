@@ -36,11 +36,10 @@ public class Card {
 	@OneToMany(mappedBy="card")
 	private List<Transaction> transactions;
 	
+	public Card() {}
 	
 	
-
 	public Card(BigInteger pan, String cardType, String cardState, Client client) {
-		super();
 		this.pan = pan;
 		this.cardType = cardType;
 		this.cardState = cardState;

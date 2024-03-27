@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apiTarjeta.dtos.CreateCardRequest;
 import com.apiTarjeta.dtos.CreateCardResponse;
@@ -22,6 +23,7 @@ public class CardServiceImpl implements CardService {
 	private ClientRepository clientRepository;
 
 
+	@Transactional
 	@Override
 	public CreateCardResponse createCard(CreateCardRequest request) {
 		
@@ -63,7 +65,7 @@ public class CardServiceImpl implements CardService {
 		
 		Optional<Client> clientValidate= clientRepository.findById(request.getClient_id());
 
-		if (!clientValidate.isPresent()) {
+		if (clientValidate.isPresent()) {
 			return clientValidate.get();
 		}else {
 			return new Client(request.getClient_id(), request.getClientName(), request.getClientLastName(),

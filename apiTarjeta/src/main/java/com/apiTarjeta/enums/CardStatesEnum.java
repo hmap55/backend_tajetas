@@ -2,9 +2,9 @@ package com.apiTarjeta.enums;
 
 public enum CardStatesEnum {
 	
-	CREATED ("Creada", 1),
+	CREATED ("C", 1),
 	
-	ENROLL ("Enrolada", 2);
+	ENROLL ("E", 2);
 
 	private String description;
 	
